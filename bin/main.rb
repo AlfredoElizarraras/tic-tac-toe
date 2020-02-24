@@ -47,13 +47,3 @@ def game_start
 end
 
 game_start
-# puts "Welcome to Tic-tac-toe!"
-# (1..3).each do |n|
-#   puts "It's Player 1 turn. Please enter a number: "
-#   p1_move = gets.chomp!
-#   puts "The board gets updated to show player 1 move"
-#   puts "It's Player 2 turn. Please enter a number: "
-#   p2_move = gets.chomp!
-#   puts "The board gets updated to show player 2 move"
-# end
-# puts "Player 1 won. Game Over"
