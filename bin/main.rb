@@ -1,14 +1,14 @@
 #!/usr/bin/env ruby
 def show_board(board)
   counter = 0
-  [1,2,3].each do |row|
-    print "-"*11,"\n" unless counter.zero?
-    [1,2,3].each do |c|
+  [1, 2, 3].each do
+    print '-' * 11, "\n" unless counter.zero?
+    [1, 2, 3].each do
       counter += 1
-      if counter % 3 == 0
-        print " #{board[counter-1]} "
+      if (counter % 3).zero?
+        print " #{board[counter - 1]} "
       else
-        print " #{board[counter-1]} |"
+        print " #{board[counter - 1]} |"
       end
     end
     puts "\n"
@@ -16,14 +16,14 @@ def show_board(board)
 end
 
 def update_board(move, board, sym)
-  board[move-1] = sym
+  board[move - 1] = sym
   show_board(board)
 end
 
 def game_start
-  board = [1,2,3,4,5,6,7,8,9]
+  board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-  puts "Welcome to Tic-tac-toe"
+  puts 'Welcome to Tic-tac-toe'
   print "\n"
   show_board(board)
   print "\n"
@@ -31,19 +31,20 @@ def game_start
   count = 0
 
   while count < 3
-    print "Player 1 turn, please enter a number: "
+    print 'Player 1 turn, please enter a number: '
     p1_move = gets.chomp.to_i
     print "\n"
-    update_board(p1_move, board, "X")
+    update_board(p1_move, board, 'X')
     print "\n"
-    print "Player 2 turn, please enter a number: "
+    print 'Player 2 turn, please enter a number: '
     p2_move = gets.chomp.to_i
     print "\n"
-    update_board(p2_move, board, "O")
+    update_board(p2_move, board, 'O')
     print "\n"
     count += 1
   end
-end 
+  puts 'Game over!'
+end
 
 game_start
 # puts "Welcome to Tic-tac-toe!"
