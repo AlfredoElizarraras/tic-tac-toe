@@ -1,45 +1,44 @@
 #!/usr/bin/env ruby
-def show_board(board)
-  counter = 0
-  [1, 2, 3].each do
-    print '-' * 11, "\n" unless counter.zero?
-    [1, 2, 3].each do
-      counter += 1
-      if (counter % 3).zero?
-        print " #{board[counter - 1]} "
-      else
-        print " #{board[counter - 1]} |"
-      end
-    end
-    puts "\n"
-  end
-end
-
-def update_board(move, board, sym)
-  board[move - 1] = sym
-  show_board(board)
-end
+require_relative '../lib/board'
+require_relative '../lib/logic'
 
 def game_start
-  board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+  board = Board.new
+  logic = Logic.new
 
   puts 'Welcome to Tic-tac-toe'
   print "\n"
-  show_board(board)
+  board.show_board
   print "\n"
 
   count = 0
 
-  while count < 3
+  while true
     print 'Player 1 turn, please enter a number: '
     p1_move = gets.chomp.to_i
     print "\n"
-    update_board(p1_move, board, 'X')
+    while !(logic.check_move(p1_move,1))
+      puts "Choose another place, that one has already been taken."
+      p1_move = gets.chomp.to_i
+    end
+    board.update_board(p1_move, 'X')
+    if logic.player_won?(1)
+      puts "player 1 win"
+      break
+    end
     print "\n"
     print 'Player 2 turn, please enter a number: '
     p2_move = gets.chomp.to_i
     print "\n"
-    update_board(p2_move, board, 'O')
+    while !(logic.check_move(p2_move,2))
+      puts "Choose another place, that one has already been taken."
+      p2_move = gets.chomp.to_i
+    end
+    board.update_board(p2_move, 'O')
+    if logic.player_won?(2)
+      puts "player 2 win"
+      break
+    end
     print "\n"
     count += 1
   end
