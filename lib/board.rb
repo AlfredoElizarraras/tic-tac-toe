@@ -1,5 +1,4 @@
 class Board
-  
   def initialize
     @board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
   end
@@ -19,7 +18,7 @@ class Board
       puts "\n"
     end
   end
-  
+
   def update_board(move, sym)
     @board[move - 1] = sym
     show_board
