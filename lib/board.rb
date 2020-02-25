@@ -5,18 +5,17 @@ class Board
 
   def show_board
     counter = 0
+    board = ''
     [1, 2, 3].each do
-      print '-' * 11, "\n" unless counter.zero?
+      board += '-' * 11 + "\n" unless counter.zero?
       [1, 2, 3].each do
         counter += 1
-        if (counter % 3).zero?
-          print " #{@board[counter - 1]} "
-        else
-          print " #{@board[counter - 1]} |"
-        end
+        board += " #{@board[counter - 1]} " if (counter % 3).zero?
+        board += " #{@board[counter - 1]} |" unless (counter % 3).zero?
       end
-      puts "\n"
+      board += "\n"
     end
+    board
   end
 
   def update_board(move, sym)
