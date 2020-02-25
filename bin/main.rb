@@ -20,6 +20,50 @@ def update_board(move, board, sym)
   show_board(board)
 end
 
+win_cases = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]]
+board_choices = []
+player1_choices = []
+player2_choices = []
+moves = 0
+
+def check_move(move, player)
+  valid_move = true
+
+  if !(move.is_a? Integer) || (move < 1 || move > 9)
+    valid_move = false
+  elsif board_choices.include?(move)
+    valid_move = false
+  else
+    moves += 1
+    board_choices.push(move)
+    player == 1 ? player1_choices.push(move) : player2_choices.push(move)
+  end
+
+  valid_move
+end
+
+def player_won?(player)
+  in_board = win_cases.select do |win_case|
+    (win_case - board_choices).empty?
+  end
+
+  unless in_board.empty?
+    in_board.each do |choice|
+      if player == 1
+        return true if (choice - player1_choices).empty?
+      else
+        return true if (choice - player2_choices).empty?
+      end
+      win_cases.delete(choice)
+    end
+  end
+  false
+end
+
+def tie?
+  return true if moves == 9
+end
+
 def game_start
   board = [1,2,3,4,5,6,7,8,9]
 
@@ -46,13 +90,3 @@ def game_start
 end 
 
 game_start
-# puts "Welcome to Tic-tac-toe!"
-# (1..3).each do |n|
-#   puts "It's Player 1 turn. Please enter a number: "
-#   p1_move = gets.chomp!
-#   puts "The board gets updated to show player 1 move"
-#   puts "It's Player 2 turn. Please enter a number: "
-#   p2_move = gets.chomp!
-#   puts "The board gets updated to show player 2 move"
-# end
-# puts "Player 1 won. Game Over"
