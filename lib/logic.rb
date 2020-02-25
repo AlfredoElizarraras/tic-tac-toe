@@ -34,7 +34,7 @@ class Logic
       in_board.each do |choice|
         if player == 1
           return true if (choice - @player1_choices).empty?
-        else
+        elsif player == 2
           return true if (choice - @player2_choices).empty?
         end
         @win_cases.delete(choice)

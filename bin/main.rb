@@ -2,49 +2,57 @@
 require_relative '../lib/board'
 require_relative '../lib/logic'
 
-def game_start
-  board = Board.new
-  logic = Logic.new
+class Main
+  attr_accessor :board, :logic
 
-  print "Welcome to Tic-tac-toe\n\n"
-
-  board.show_board
-
-  print "\n"
-
-  loop do
-    print 'Player 1 turn, please enter a number: '
-    p1_move = gets.chomp.to_i
-    print "\n"
-    until logic.check_move(p1_move, 1)
-      print 'Not a valid number, try again: '
-      p1_move = gets.chomp.to_i
-    end
-    board.update_board(p1_move, 'X')
-    print "\n"
-    if logic.player_won?(1)
-      puts "Player 1 wins!\n\n"
-      break
-    end
-    if logic.tie?
-      print "It's a Tie!\n\n"
-      break
-    end
-    print 'Player 2 turn, please enter a number: '
-    p2_move = gets.chomp.to_i
-    print "\n"
-    until logic.check_move(p2_move, 2)
-      print 'Not a valid number, try again: '
-      p2_move = gets.chomp.to_i
-    end
-    board.update_board(p2_move, 'O')
-    print "\n"
-    if logic.player_won?(2)
-      puts "Player 2 wins!\n\n"
-      break
-    end
+  def initialize
+    @board = nil
+    @logic = nil
+    initialize_variables
+    instructions
+    game_start
   end
-  puts 'Game over!'
+
+  def game_start
+    board.show_board
+    (1..9).each do |turn|
+      player = turn.even? ? 2 : 1
+      mark = turn.even? ? 'O' : 'X'
+      p_move = player_turn(player)
+      until logic.check_move(p_move, player)
+        print 'Not a valid number, try again: '
+        p_move = gets.chomp.to_i
+      end
+      board.update_board(p_move, mark)
+      if logic.player_won?(player)
+        puts "Player #{player} wins!\n\n"
+        break
+      end
+      if logic.tie?
+        print "It's a Tie!\n\n"
+        break
+      end
+    end
+    puts 'Game over!'
+  end
+
+  def initialize_variables
+    self.board = Board.new
+    self.logic = Logic.new
+  end
+
+  def instructions
+    puts 'Welcome to Tic-tac-toe'
+    puts 'Select a number to replace with the given mark:'
+    puts "Player 1: 'X'"
+    puts "Player 1: 'O'"
+    puts "\n\n"
+  end
+
+  def player_turn(player)
+    print "Player #{player} turn, please enter a number: "
+    gets.chomp.to_i
+  end
 end
 
-game_start
+Main.new
