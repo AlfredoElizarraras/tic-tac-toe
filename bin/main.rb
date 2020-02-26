@@ -17,7 +17,7 @@ class Main
       player = turn.even? ? 2 : 1
       mark = turn.even? ? 'O' : 'X'
       p_move = player_turn(player)
-      until logic.check_move(p_move, player)
+      until logic.check_input(p_move, player)
         print "#{logic.error_message}, try again: "
         p_move = gets.chomp
       end
@@ -57,15 +57,15 @@ class Main
   end
 
   def get_player_info(times_call = true)
-    puts "What is your name?"
+    puts 'What is your name?'
     name = gets.chomp
     while logic.valid_name(name)
       puts logic.error.message
       name = gets.chomp
     end
-    mark = times_call == 1 ? "X" : "O"
-    @player1 = Player.new(name,mark,1) if times_call
-    @player2 = Player.new(name,mark,2) unless times_call
+    mark = times_call == 1 ? 'X' : 'O'
+    @player1 = Player.new(name, mark, 1) if times_call
+    @player2 = Player.new(name, mark, 2) unless times_call
   end
 end
 

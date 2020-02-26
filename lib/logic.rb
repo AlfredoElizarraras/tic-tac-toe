@@ -9,38 +9,46 @@ class Logic
     @player1_choices = []
     @player2_choices = []
     @moves = 0
-    @error_message = ""
+    @error_message = ''
   end
 
   def check_move(move, player)
     valid_move = false
 
-    if move.length == 1 && move.match(/\d/)
-      puts "IN"
-      move = move.to_i
-      if move < 1
-        @error_message = Error::INVALID_NUMBERS_RANGE
-      elsif @board_choices.include?(move)
-        @error_message = Error::INVALID_NUMBERS_SAME
-      else
-        valid_move = true
-        @moves += 1
-        @board_choices.push(move)
-        player == 1 ? @player1_choices.push(move) : @player2_choices.push(move)
-      end
+    move = move.to_i
+    if @board_choices.include?(move)
+      @error_message = Error::INVALID_NUMBERS_SAME
+    else
+      valid_move = true
+      @moves += 1
+      @board_choices.push(move)
+      player == 1 ? @player1_choices.push(move) : @player2_choices.push(move)
     end
-    # elsif move.match(/[\d\.\d+]/)
-    #   a = Float(move) rescue false
-    #   unless a
-    #     move.is_a? String ? @error_message = Error::INVALID_NUMBERS_LETTER : nil
-    #   else
-    #     move.is_a? Float ? @error_message = Error::INVALID_NUMBERS_FLOATS : nil
-    #   end
-    # elsif !(move.is_a? Integer)
-    #   move.is_a? Symbol ? @error_message = Error::INVALID_NUMBERS_SYMBOL : nil
-    # end
 
     valid_move
+  end
+
+  def check_input(move, player)
+    valid_input = false
+
+    case move
+    when /^[1-9]$/
+      valid_input = check_move(move, player)
+    when /\s/
+      @error_message = Error::INVALID_NUMBERS_EMPTY
+    when /^\d\.\d+/
+      @error_message = Error::INVALID_NUMBERS_FLOATS
+    when /^\-?\d+\.?\d*$/
+      @error_message = Error::INVALID_NUMBERS_RANGE
+    when /^[A-Za-z]/
+      @error_message = Error::INVALID_NUMBERS_LETTER
+    when /^[^A-Za-z0-9]/
+      @error_message = Error::INVALID_NUMBERS_SYMBOL
+    else
+      @error_message = Error::INVALID_NUMBERS_EMPTY
+    end
+
+    valid_input
   end
 
   def player_won?(player)
