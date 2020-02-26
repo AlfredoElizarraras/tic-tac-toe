@@ -13,14 +13,23 @@ class Logic
   end
 
   def check_move(move, player)
-    valid_move = true
+    valid_move = false
 
-    if !(move.is_a? Integer) || (move < 1 || move > 9)
-      valid_move = false
+    if move.length > 1
+      a = Float(move) rescue false
+      unless a
+        move.is_a? String ? @error_message = Error::INVALID_NUMBERS_LETTER
+      else
+        move.is_a? Float ? @error_message = Error::INVALID_NUMBERS_FLOATS
+      end
+    elsif !(move.is_a? Integer)
+      move.is_a? Symbol ? @error_message = Error::INVALID_NUMBERS_SYMBOL
+    elsif move < 1 || move > 9
+      @error_message = Error::INVALID_NUMBERS_RANGE
     elsif @board_choices.include?(move)
-      valid_move = false
       @error_message = Error::INVALID_NUMBERS_SAME
     else
+      valid_move = true
       @moves += 1
       @board_choices.push(move)
       player == 1 ? @player1_choices.push(move) : @player2_choices.push(move)
