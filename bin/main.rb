@@ -19,7 +19,7 @@ class Main
       p_move = player_turn(player)
       until logic.check_move(p_move, player)
         print "#{logic.error_message}, try again: "
-        p_move = gets.chomp.to_i
+        p_move = gets.chomp
       end
       print "\n#{board.update_board(p_move, mark)}\n"
       if logic.player_won?(player)
@@ -53,7 +53,7 @@ class Main
 
   def player_turn(player)
     print "Player #{player} turn, please enter a number: "
-    gets.chomp.to_i
+    gets.chomp
   end
 
   def get_player_info(times_call = true)

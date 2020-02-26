@@ -1,4 +1,4 @@
-require_relative 'Error'
+require_relative 'error'
 
 class Logic
   attr_reader :error_message
@@ -15,25 +15,30 @@ class Logic
   def check_move(move, player)
     valid_move = false
 
-    if move.length > 1
-      a = Float(move) rescue false
-      unless a
-        move.is_a? String ? @error_message = Error::INVALID_NUMBERS_LETTER
+    if move.length == 1 && move.match(/\d/)
+      puts "IN"
+      move = move.to_i
+      if move < 1
+        @error_message = Error::INVALID_NUMBERS_RANGE
+      elsif @board_choices.include?(move)
+        @error_message = Error::INVALID_NUMBERS_SAME
       else
-        move.is_a? Float ? @error_message = Error::INVALID_NUMBERS_FLOATS
+        valid_move = true
+        @moves += 1
+        @board_choices.push(move)
+        player == 1 ? @player1_choices.push(move) : @player2_choices.push(move)
       end
-    elsif !(move.is_a? Integer)
-      move.is_a? Symbol ? @error_message = Error::INVALID_NUMBERS_SYMBOL
-    elsif move < 1 || move > 9
-      @error_message = Error::INVALID_NUMBERS_RANGE
-    elsif @board_choices.include?(move)
-      @error_message = Error::INVALID_NUMBERS_SAME
-    else
-      valid_move = true
-      @moves += 1
-      @board_choices.push(move)
-      player == 1 ? @player1_choices.push(move) : @player2_choices.push(move)
     end
+    # elsif move.match(/[\d\.\d+]/)
+    #   a = Float(move) rescue false
+    #   unless a
+    #     move.is_a? String ? @error_message = Error::INVALID_NUMBERS_LETTER : nil
+    #   else
+    #     move.is_a? Float ? @error_message = Error::INVALID_NUMBERS_FLOATS : nil
+    #   end
+    # elsif !(move.is_a? Integer)
+    #   move.is_a? Symbol ? @error_message = Error::INVALID_NUMBERS_SYMBOL : nil
+    # end
 
     valid_move
   end

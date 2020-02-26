@@ -19,7 +19,7 @@ class Board
   end
 
   def update_board(move, sym)
-    @board[move - 1] = sym
+    @board[move.to_i - 1] = sym
     show_board
   end
 end
