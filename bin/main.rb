@@ -67,6 +67,8 @@ end
 
 def game_start
   board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+  turn = 1
+  player = 1
 
   print "Welcome to Tic-tac-toe\n\n"
 
@@ -75,36 +77,25 @@ def game_start
   print "\n"
 
   loop do
-    print 'Player 1 turn, please enter a number: '
-    p1_move = gets.chomp.to_i
+    turn.odd? ? player = 1 : player = 2
+    player == 1 ? mark = 'X' : mark = 'O'
+    print "Player #{player} turn, please enter a number: "
+    p_move = gets.chomp.to_i
     print "\n"
-    until check_move(p1_move, 1)
+    until check_move(p_move, player)
       print 'Not a valid number, try again: '
-      p1_move = gets.chomp.to_i
+      p_move = gets.chomp.to_i
     end
-    update_board(p1_move, board, 'X')
+    update_board(p_move, board, mark)
     print "\n"
-    if player_won?(1)
-      puts "Player 1 wins!\n\n"
+    if player_won?(player)
+      puts "Player #{player} wins!\n\n"
       break
-    end
-    if tie?
+    elsif tie?
       print "It's a Tie!\n\n"
       break
     end
-    print 'Player 2 turn, please enter a number: '
-    p2_move = gets.chomp.to_i
-    print "\n"
-    until check_move(p2_move, 2)
-      print 'Not a valid number, try again: '
-      p2_move = gets.chomp.to_i
-    end
-    update_board(p2_move, board, 'O')
-    print "\n"
-    if player_won?(2)
-      puts "Player 2 wins!\n\n"
-      break
-    end
+    turn += 1
   end
   puts 'Game over!'
 end
