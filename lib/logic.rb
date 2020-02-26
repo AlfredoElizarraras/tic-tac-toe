@@ -1,3 +1,4 @@
+# rubocop: disable Metrics/CyclomaticComplexity
 require_relative 'error'
 
 class Logic
@@ -87,3 +88,5 @@ class Logic
     is_valid_name
   end
 end
+
+# rubocop: enable Metrics/CyclomaticComplexity

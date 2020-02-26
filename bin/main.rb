@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# rubocop: disable Metrics/CyclomaticComplexity
 require_relative '../lib/board'
 require_relative '../lib/logic'
 require_relative '../lib/player'
@@ -19,7 +20,7 @@ class Main
     (1..9).each do |turn|
       player = turn.even? ? @player2 : @player1
       p_move = player_turn(player)
-      until logic.check_move(p_move, player.player_number)
+      until logic.check_input(p_move, player.player_number)
         print "#{logic.error_message}, try again: "
         p_move = gets.chomp
       end
@@ -69,8 +70,9 @@ class Main
     mark = times_call ? 'X' : 'O'
     @player1 = Player.new(name, mark, 1) if times_call
     @player2 = Player.new(name, mark, 2) unless times_call
-    nil
   end
 end
 
 Main.new
+
+# rubocop: enable Metrics/CyclomaticComplexity
