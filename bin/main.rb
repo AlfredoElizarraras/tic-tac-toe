@@ -3,7 +3,7 @@ require_relative '../lib/board'
 require_relative '../lib/logic'
 
 class Main
-  attr_accessor :board, :logic
+  attr_reader :board, :logic
 
   def initialize
     @board = nil
@@ -37,8 +37,8 @@ class Main
   end
 
   def initialize_variables
-    self.board = Board.new
-    self.logic = Logic.new
+    @board = Board.new
+    @logic = Logic.new
   end
 
   def instructions
