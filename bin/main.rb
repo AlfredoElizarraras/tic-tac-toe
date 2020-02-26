@@ -77,8 +77,13 @@ def game_start
   print "\n"
 
   loop do
-    turn.odd? ? player = 1 : player = 2
-    player == 1 ? mark = 'X' : mark = 'O'
+    if turn.odd?
+      player = 1
+      mark = 'X'
+    else
+      player = 2
+      mark = 'O'
+    end
     print "Player #{player} turn, please enter a number: "
     p_move = gets.chomp.to_i
     print "\n"
