@@ -2,6 +2,8 @@
 require_relative 'error'
 
 class Logic
+  attr_reader :error_message
+
   def initialize
     @win_cases = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]]
     @board_choices = []
@@ -16,6 +18,7 @@ class Logic
 
     move = move.to_i
     if @board_choices.include?(move)
+      valid_move = false
       @error_message = Error::INVALID_NUMBERS_SAME
     else
       @moves += 1
