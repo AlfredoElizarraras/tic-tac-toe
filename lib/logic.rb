@@ -72,4 +72,18 @@ class Logic
   def tie?
     return true if @moves == 9
   end
+
+  def valid_name(name, oldname)
+    is_valid_name = false
+    if name.empty?
+      @error_message = Error::INVALID_NAME_EMPTY
+    elsif name.length > 10
+      @error_message = Error::INVALID_NAME_TOO_LONG
+    elsif name == oldname
+      @error_message = Error::INVALID_NAME_SAME
+    else
+      is_valid_name = true
+    end
+    is_valid_name
+  end
 end
