@@ -56,3 +56,5 @@ class Main
 end
 
 Main.new
+
+# rubocop: enable Metrics/MethodLength
