@@ -7,6 +7,11 @@
 
 ![tic tac toe part - 1 ](/assets/tic-tac-toe.jpeg?raw=true "Screenshot")
 ![tic tac toe part - 2 ](/assets/tic-tac-toe1.jpeg?raw=true "Screenshot")
+![tic tac toe part - 3 ](/assets/tic-tac-toe2.jpeg?raw=true "Screenshot")
+![tic tac toe part - 4 ](/assets/tic-tac-toe3.jpeg?raw=true "Screenshot")
+![tic tac toe part - 5 ](/assets/tic-tac-toe4.jpeg?raw=true "Screenshot")
+![tic tac toe part - 6 ](/assets/tic-tac-toe5.jpeg?raw=true "Screenshot")
+![tic tac toe part - 7 ](/assets/tic-tac-toe6.jpeg?raw=true "Screenshot")
 
 ---
 ## Use
@@ -37,10 +42,6 @@ https://repl.it/repls/StaticSwelteringDehardwarization
 ### Prerequisites
 
 - Ruby 2.6.5
-
-### Dependencies
-
-If there are dependencies
 
 ### Install
 
