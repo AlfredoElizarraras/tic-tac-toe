@@ -2,7 +2,7 @@
 require_relative 'error'
 
 class Logic
-  attr_reader :error_message
+  attr_reader :error_message, :board_choices, :player1_choices, :moves
 
   def initialize
     @win_cases = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]]
@@ -31,7 +31,7 @@ class Logic
 
   def check_input(move, player)
     valid_input = false
-
+  
     case move
     when /^[1-9]$/
       valid_input = check_move(move, player)
@@ -76,7 +76,7 @@ class Logic
 
   def valid_name(name, oldname)
     is_valid_name = false
-    if name.empty?
+    if name.strip.empty?
       @error_message = Error::INVALID_NAME_EMPTY
     elsif name.length > 10
       @error_message = Error::INVALID_NAME_TOO_LONG
