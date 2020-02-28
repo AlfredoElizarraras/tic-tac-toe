@@ -7,6 +7,15 @@ RSpec.describe Logic do
   let(:error_message) { Error.new }
   let(:player1) { 1 }
   let(:player2) { 2 }
+  let(:win_cases) { [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]] }
+  let(:win_case_one) { [1, 2, 3] }
+  let(:win_case_two) { [4, 5, 6] }
+  let(:win_case_three) { [7, 8, 9] }
+  let(:win_case_four) { [1, 4, 7] }
+  let(:win_case_five) { [2, 5, 8] }
+  let(:win_case_six) { [3, 6, 9] }
+  let(:win_case_seven) { [1, 5, 9] }
+  let(:win_case_eigth) { [3, 5, 7] }
 
   describe '#valid_name' do
     it 'returns true if the name entered is whithin the acceptable lenght' do
@@ -113,6 +122,144 @@ RSpec.describe Logic do
     it "changes the error message if the input entered isn't a number, a letter or a word" do
       mock_logic.check_input('+,{', player1)
       expect(mock_logic.error_message).to eql(Error::INVALID_NUMBERS_SYMBOL)
+    end
+  end
+
+  describe '#tie?' do
+    it 'return true if the moves_count is equal to 9.' do
+     [1, 2, 1, 2, 2, 1, 1, 1, 2].each_with_index do |player, index|
+        mock_logic.check_move(index + 1, player)
+     end
+     expect(mock_logic.tie?).to be true
+    end
+
+    it 'return nil if the moves_count is less than 9.' do
+     [1, 2, 1, 2, 1, 2, 1].each_with_index do |player, index|
+        mock_logic.check_move(index + 1, player)
+     end
+     expect(mock_logic.tie?).to eql(nil)
+    end
+  end
+
+  describe '#player_won?' do
+    it 'return false if the player has not won yet.' do
+      expect(mock_logic.player_won?(player1)).to be false
+    end
+
+    it 'return true if the player one match win case one.' do
+      win_case_one. each do |move|
+        mock_logic.check_move(move, player1)
+      end
+      expect(mock_logic.player_won?(player1)).to be true
+    end
+
+    it 'return true if the player two match win case one.' do
+      win_case_one. each do |move|
+        mock_logic.check_move(move, player2)
+      end
+      expect(mock_logic.player_won?(player2)).to be true
+    end
+
+    it 'return true if the player one match win case two.' do
+      win_case_two. each do |move|
+        mock_logic.check_move(move, player1)
+      end
+      expect(mock_logic.player_won?(player1)).to be true
+    end
+
+    it 'return true if the player two match win case two.' do
+      win_case_two. each do |move|
+        mock_logic.check_move(move, player2)
+      end
+      expect(mock_logic.player_won?(player2)).to be true
+    end
+
+
+    it 'return true if the player one match win case three.' do
+      win_case_three. each do |move|
+        mock_logic.check_move(move, player1)
+      end
+      expect(mock_logic.player_won?(player1)).to be true
+    end
+
+    it 'return true if the player two match win case three.' do
+      win_case_three. each do |move|
+        mock_logic.check_move(move, player2)
+      end
+      expect(mock_logic.player_won?(player2)).to be true
+    end
+
+    it 'return true if the player one match win case four.' do
+      win_case_four. each do |move|
+        mock_logic.check_move(move, player1)
+      end
+      expect(mock_logic.player_won?(player1)).to be true
+    end
+
+    it 'return true if the player two match win case four.' do
+      win_case_four. each do |move|
+        mock_logic.check_move(move, player2)
+      end
+      expect(mock_logic.player_won?(player2)).to be true
+    end
+
+
+    it 'return true if the player one match win case five.' do
+      win_case_five. each do |move|
+        mock_logic.check_move(move, player1)
+      end
+      expect(mock_logic.player_won?(player1)).to be true
+    end
+
+    it 'return true if the player two match win case five.' do
+      win_case_five. each do |move|
+        mock_logic.check_move(move, player2)
+      end
+      expect(mock_logic.player_won?(player2)).to be true
+    end
+
+    it 'return true if the player one match win case six.' do
+      win_case_six. each do |move|
+        mock_logic.check_move(move, player1)
+      end
+      expect(mock_logic.player_won?(player1)).to be true
+    end
+
+    it 'return true if the player two match win case six.' do
+      win_case_six. each do |move|
+        mock_logic.check_move(move, player2)
+      end
+      expect(mock_logic.player_won?(player2)).to be true
+    end
+
+
+    it 'return true if the player one match win case seven.' do
+      win_case_seven. each do |move|
+        mock_logic.check_move(move, player1)
+      end
+      expect(mock_logic.player_won?(player1)).to be true
+    end
+
+    it 'return true if the player two match win case seven.' do
+      win_case_seven. each do |move|
+        mock_logic.check_move(move, player2)
+      end
+      expect(mock_logic.player_won?(player2)).to be true
+    end
+
+
+    it 'return true if the player one match win case eigth.' do
+      win_case_eigth. each do |move|
+        mock_logic.check_move(move, player1)
+      end
+      expect(mock_logic.player_won?(player1)).to be true
+    end
+
+    it 'return true if the player two match win case eigth.' do
+      win_case_eigth. each do |move|
+        mock_logic.check_move(move, player2)
+      end
+      expect(mock_logic.player_won?(player2)).to be true
     end
   end
 end
