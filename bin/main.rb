@@ -5,18 +5,19 @@ require_relative '../lib/logic'
 require_relative '../lib/player'
 
 class Main
-  attr_reader :board, :logic
+  attr_reader :board, :logic, :player1, :player2
 
   def initialize
     @board = nil
     @logic = nil
     initialize_variables
     instructions
-    #assign_names(true)
-    #assign_names(false)
+ 
   end
 
   def game_start
+    assign_names(true)
+    assign_names(false)
     print board.show_board + "\n"
     (1..9).each do |turn|
       player = turn.even? ? @player2 : @player1
@@ -53,7 +54,7 @@ class Main
 
   def player_turn(player)
     print "Player #{player.name} turn, please enter a number: "
-    gets.chomp
+    $stdin.gets.chomp
   end
 
   def assign_names(times_call)
@@ -72,5 +73,7 @@ end
 
 #main = Main.new
 #main.game_start
+#main.assign_names(true)
+#main.assign_names(false)
 
 # rubocop: enable Metrics/CyclomaticComplexity
