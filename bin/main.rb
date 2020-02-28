@@ -12,9 +12,8 @@ class Main
     @logic = nil
     initialize_variables
     instructions
-    assign_names(true)
-    assign_names(false)
-    game_start
+    #assign_names(true)
+    #assign_names(false)
   end
 
   def game_start
@@ -59,10 +58,10 @@ class Main
 
   def assign_names(times_call)
     puts "What is your name player #{times_call ? 1 : 2}?"
-    name = gets.chomp
+    name = $stdin.gets.chomp
     until logic.valid_name(name, times_call ? '' : @player1.name)
       print "#{logic.error_message} Write it again: "
-      name = gets.chomp
+      name = $stdin.gets.chomp
     end
     puts "\n"
     mark = times_call ? 'X' : 'O'
@@ -71,6 +70,7 @@ class Main
   end
 end
 
-Main.new
+#main = Main.new
+#main.game_start
 
 # rubocop: enable Metrics/CyclomaticComplexity

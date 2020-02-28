@@ -31,7 +31,7 @@ class Logic
 
   def check_input(move, player)
     valid_input = false
-  
+
     case move
     when /^[1-9]$/
       valid_input = check_move(move, player)
