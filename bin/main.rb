@@ -1,23 +1,23 @@
 #!/usr/bin/env ruby
+# rubocop: disable Metrics/MethodLength
 # rubocop: disable Metrics/CyclomaticComplexity
 require_relative '../lib/board'
 require_relative '../lib/logic'
 require_relative '../lib/player'
 
 class Main
-  attr_reader :board, :logic
+  attr_reader :board, :logic, :player1, :player2
 
   def initialize
     @board = nil
     @logic = nil
     initialize_variables
     instructions
-    assign_names(true)
-    assign_names(false)
-    game_start
   end
 
   def game_start
+    assign_names(true)
+    assign_names(false)
     print board.show_board + "\n"
     (1..9).each do |turn|
       player = turn.even? ? @player2 : @player1
@@ -54,15 +54,15 @@ class Main
 
   def player_turn(player)
     print "Player #{player.name} turn, please enter a number: "
-    gets.chomp
+    $stdin.gets.chomp
   end
 
   def assign_names(times_call)
     puts "What is your name player #{times_call ? 1 : 2}?"
-    name = gets.chomp
+    name = $stdin.gets.chomp
     until logic.valid_name(name, times_call ? '' : @player1.name)
       print "#{logic.error_message} Write it again: "
-      name = gets.chomp
+      name = $stdin.gets.chomp
     end
     puts "\n"
     mark = times_call ? 'X' : 'O'
@@ -71,6 +71,12 @@ class Main
   end
 end
 
-Main.new
+puts 'Do you want to start the game?'
+answer = gets.chomp
+if answer.downcase == 'yes' || answer.downcase == 'y'
+  main = Main.new
+  main.game_start
+end
 
+# rubocop: enable Metrics/MethodLength
 # rubocop: enable Metrics/CyclomaticComplexity
