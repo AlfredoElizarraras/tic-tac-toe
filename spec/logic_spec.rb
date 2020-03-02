@@ -44,7 +44,7 @@ RSpec.describe Logic do
       expect(mock_logic.check_move(1, player1)).to be true
     end
 
-    it "returns false if the space selected has been ocupied" do
+    it 'returns false if the space selected has been ocupied' do
       mock_logic.check_move(1, player1)
       expect(mock_logic.check_move(1, player2)).to be false
     end
@@ -92,11 +92,11 @@ RSpec.describe Logic do
 
   describe '#check_input' do
     it 'returns true if the input passed is a number between 1 to 9' do
-      expect(mock_logic.check_input("1", player1)).to be true
+      expect(mock_logic.check_input('1', player1)).to be true
     end
 
     it "returns false if the input passed isn't a number between 1 to 9" do
-      expect(mock_logic.check_input("a", player1)).to be false
+      expect(mock_logic.check_input('a', player1)).to be false
     end
 
     it 'changes the error message if the input entered is empty or a space' do
@@ -127,17 +127,17 @@ RSpec.describe Logic do
 
   describe '#tie?' do
     it 'return true if the moves_count is equal to 9.' do
-     [1, 2, 1, 2, 2, 1, 1, 1, 2].each_with_index do |player, index|
+      [1, 2, 1, 2, 2, 1, 1, 1, 2].each_with_index do |player, index|
         mock_logic.check_move(index + 1, player)
-     end
-     expect(mock_logic.tie?).to be true
+      end
+      expect(mock_logic.tie?).to be true
     end
 
     it 'return nil if the moves_count is less than 9.' do
-     [1, 2, 1, 2, 1, 2, 1].each_with_index do |player, index|
+      [1, 2, 1, 2, 1, 2, 1].each_with_index do |player, index|
         mock_logic.check_move(index + 1, player)
-     end
-     expect(mock_logic.tie?).to eql(nil)
+      end
+      expect(mock_logic.tie?).to eql(nil)
     end
   end
 
@@ -174,7 +174,6 @@ RSpec.describe Logic do
       expect(mock_logic.player_won?(player2)).to be true
     end
 
-
     it 'return true if the player one match win case three.' do
       win_case_three. each do |move|
         mock_logic.check_move(move, player1)
@@ -202,7 +201,6 @@ RSpec.describe Logic do
       end
       expect(mock_logic.player_won?(player2)).to be true
     end
-
 
     it 'return true if the player one match win case five.' do
       win_case_five. each do |move|
@@ -232,7 +230,6 @@ RSpec.describe Logic do
       expect(mock_logic.player_won?(player2)).to be true
     end
 
-
     it 'return true if the player one match win case seven.' do
       win_case_seven. each do |move|
         mock_logic.check_move(move, player1)
@@ -246,7 +243,6 @@ RSpec.describe Logic do
       end
       expect(mock_logic.player_won?(player2)).to be true
     end
-
 
     it 'return true if the player one match win case eigth.' do
       win_case_eigth. each do |move|

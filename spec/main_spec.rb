@@ -9,6 +9,9 @@ RSpec.describe Main do
   let(:player_prompt) { "Player asd turn, please enter a number: " }
   let(:player1_name) { 'Mark' }
   let(:player2_name) { 'Eve' }
+  let(:player1_wins) { /Player\sMark\swins!\n\nGame\sover!\n/ }
+  let(:player2_wins) { /Player\sEve\swins!\n\nGame\sover!\n/ }
+  let(:tie) { /It\'s\sa\sTie!\n\nGame\sover!\n/ }
 
   describe '#initialize_variables' do
     it 'creates an instance of the class board' do
@@ -37,6 +40,7 @@ RSpec.describe Main do
     it 'prompts the player to make a move' do
       main = Main.new
       player = Player.new("asd", 'X', 1)
+      allow($stdin).to receive(:gets).and_return "1"
       expect do
         main.player_turn(player)
       end.to output(player_prompt).to_stdout
@@ -60,10 +64,28 @@ RSpec.describe Main do
   end
 
   describe '#game_start' do
-    it 'outputs the player that won and a game over message' do
+    it 'outputs that the player 1 won and a game over message' do
       main = Main.new
-      allow($stdin).to receive(:gets).and_return("asdasd", "asdw", "1", "2", "3", "4", "5", "6", "7")
-      main.game_start
+      allow($stdin).to receive(:gets).and_return(player1_name, player2_name, "1", "2", "3", "4", "5", "6", "7")
+      expect do
+        main.game_start
+      end.to output(player1_wins).to_stdout
+    end
+
+    it 'outputs that the player 2 won and a game over message' do
+      main = Main.new
+      allow($stdin).to receive(:gets).and_return(player1_name, player2_name, "1", "2", "3", "5", "4", "8")
+      expect do
+        main.game_start
+      end.to output(player2_wins).to_stdout
+    end
+
+    it 'outputs that there was a tie and a game over message' do
+      main = Main.new
+      allow($stdin).to receive(:gets).and_return(player1_name, player2_name, "1", "2", "3", "5", "4", "6", "9", "7", "8")
+      expect do
+        main.game_start
+      end.to output(tie).to_stdout
     end
   end
 end

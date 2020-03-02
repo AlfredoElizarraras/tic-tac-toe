@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# rubocop: disable Metrics/MethodLength
 # rubocop: disable Metrics/CyclomaticComplexity
 require_relative '../lib/board'
 require_relative '../lib/logic'
@@ -12,7 +13,6 @@ class Main
     @logic = nil
     initialize_variables
     instructions
- 
   end
 
   def game_start
@@ -71,9 +71,5 @@ class Main
   end
 end
 
-#main = Main.new
-#main.game_start
-#main.assign_names(true)
-#main.assign_names(false)
-
+# rubocop: enable Metrics/MethodLength
 # rubocop: enable Metrics/CyclomaticComplexity
