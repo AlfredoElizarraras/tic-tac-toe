@@ -71,5 +71,12 @@ class Main
   end
 end
 
+puts 'Do you want to start the game?'
+answer = gets.chomp
+if answer.downcase == 'yes' || answer.downcase == 'y'
+  main = Main.new
+  main.game_start
+end
+
 # rubocop: enable Metrics/MethodLength
 # rubocop: enable Metrics/CyclomaticComplexity
